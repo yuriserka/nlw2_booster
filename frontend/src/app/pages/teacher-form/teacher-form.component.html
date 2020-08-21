@@ -1,0 +1,27 @@
+<div id="page-teacher-form" className="container">
+  <page-header title="Que incrível que você quer dar aulas."
+    description="O primeiro passo é preencher o formulário de inscrição"></page-header>
+  <main>
+    <fieldset>
+      <legend>Seus Dados</legend>
+      <app-input label="Nome Completo" name="name"></app-input>
+      <app-input label="Avatar" name="avatar"></app-input>
+      <app-input label="WhatsApp" name="whatsapp"></app-input>
+      <app-text-area label="Biografia" name="bio"></app-text-area>
+    </fieldset>
+    <fieldset>
+      <legend>Sobre a Aula</legend>
+      <app-input label="Matéria" name="subject"></app-input>
+      <app-input label="Custo da hora aula" name="price"></app-input>
+    </fieldset>
+
+    <footer>
+      <p>
+        <img src="../../../assets/images/icons/warning.svg" alt="Aviso Importante">
+        Importante! <br />
+        Preencha todos os dados
+      </p>
+      <button type="button">Salvar Cadastro</button>
+    </footer>
+  </main>
+</div>

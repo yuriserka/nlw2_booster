@@ -1,0 +1,14 @@
+<div id="page-teacher-list" class="container">
+  <page-header title="Estes são os Proffys disponíveis.">
+    <form id="search-teachers">
+      <app-input label="Matéria" name="subject"></app-input>
+      <app-input label="Dia da Semana" name="week_day"></app-input>
+      <app-input label="Horário" name="time"></app-input>
+    </form>
+  </page-header>
+
+  <main>
+    <div *ngIf="carregando$ | async">carregando</div>
+    <teacher-item *ngFor="let l of data$ | async" [lesson]="l"></teacher-item>
+  </main>
+</div>

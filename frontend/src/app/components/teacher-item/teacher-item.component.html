@@ -1,0 +1,24 @@
+<article class="teacher-item">
+  <header>
+    <img src="{{lesson.user.avatar}}"
+      alt="nome" />
+    <div>
+      <strong>{{lesson.user.name}}</strong>
+      <span>{{lesson.subject}}</span>
+    </div>
+  </header>
+
+  <p>
+    {{lesson.description}}
+  </p>
+
+  <footer>
+    <p>
+      preço por hora <strong>R$ {{lesson.price}}</strong>
+    </p>
+    <button type="button">
+      <img src="../../assets/images/icons/whatsapp.svg" alt="Whatsapp" />
+      Entrar em Contato
+    </button>
+  </footer>
+</article>
