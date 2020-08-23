@@ -9,6 +9,7 @@ import { LessonEffects } from './.ngrx/effects';
 import { reducer } from './.ngrx/reducer';
 import { TeacherListRouting } from './teacher-list-routing.module';
 import { TeacherListComponent } from './teacher-list.component';
+import { SelectModule } from '../../components/select/select.module';
 
 @NgModule({
   declarations: [TeacherListComponent],
@@ -18,6 +19,7 @@ import { TeacherListComponent } from './teacher-list.component';
     TeacherItemModule,
     TeacherListRouting,
     InputModule,
+    SelectModule,
     StoreModule.forFeature('teacherList', reducer),
     EffectsModule.forFeature([LessonEffects])
   ],

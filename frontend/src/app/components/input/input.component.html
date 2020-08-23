@@ -1,4 +1,4 @@
-<div class="input-container">
+<div class="input-container" [formGroup]={{parentForm}}>
   <label htmlFor={{name}}>{{ label }}</label>
-  <input type="{{name === 'time' ? name : 'text'}}" id={{name}} />
+  <input type="{{type ? type : 'text'}}" id={{name}} autocomplete="off" [formControlName]={{controlName}} />
 </div>

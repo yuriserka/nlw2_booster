@@ -16,6 +16,10 @@
   width: 90%;
 }
 
+app-select .select-container label {
+  color: white;
+}
+
 @media(min-width: 700px) {
   #page-teacher-list {
     max-width: 100%;
@@ -29,8 +33,8 @@
     bottom: -28px;
   }
 
-  #search-teachers .input-container + .input-container,
-  #search-teachers .select-container + .select-container {
+  #search-teachers app-input + app-input,
+  #search-teachers app-select + app-select {
     margin-top: 0;
   }
 

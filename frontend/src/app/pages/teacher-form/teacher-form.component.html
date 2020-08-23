@@ -1,18 +1,49 @@
 <div id="page-teacher-form" className="container">
   <page-header title="Que incrível que você quer dar aulas."
     description="O primeiro passo é preencher o formulário de inscrição"></page-header>
-  <main>
+  <main [formGroup]="form">
     <fieldset>
       <legend>Seus Dados</legend>
-      <app-input label="Nome Completo" name="name"></app-input>
+      <app-input [parentForm]="form" label="Nome Completo" name="name" [controlName]="name"></app-input>
       <app-input label="Avatar" name="avatar"></app-input>
       <app-input label="WhatsApp" name="whatsapp"></app-input>
       <app-text-area label="Biografia" name="bio"></app-text-area>
     </fieldset>
     <fieldset>
       <legend>Sobre a Aula</legend>
-      <app-input label="Matéria" name="subject"></app-input>
+      <app-select label="Matéria" name="subject" [options]="[
+        {value: 'Artes', label: 'Artes'},
+        {value: 'Matemática', label: 'Matemática'},
+        {value: 'História', label: 'História'},
+        {value: 'Filosofia', label: 'Filosofia'},
+        {value: 'Geografia', label: 'Geografia'},
+        {value: 'Química', label: 'Química'},
+        {value: 'Física', label: 'Física'},
+        {value: 'Biologia', label: 'Biologia'},
+        {value: 'Português', label: 'Português'},
+        {value: 'Educação Física', label: 'Educação Física'}
+        ]"></app-select>
       <app-input label="Custo da hora aula" name="price"></app-input>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        Horários Disponíveis
+        <button type="button">+ Novo horário</button>
+      </legend>
+      <div class="schedule-item">
+        <app-select label="Dia da Semana" name="week_day" [options]="[
+          {value: '0', label: 'Domingo'},
+          {value: '1', label: 'Segunda-Feira'},
+          {value: '2', label: 'Terça-Feira'},
+          {value: '3', label: 'Quarta-Feira'},
+          {value: '4', label: 'Quinta-Feira'},
+          {value: '5', label: 'Sexta-Feira'},
+          {value: '6', label: 'Sábado'}
+          ]"></app-select>
+        <app-input name="from" label="Das" type="time"></app-input>
+        <app-input name="to" label="Até" type="time"></app-input>
+      </div>
     </fieldset>
 
     <footer>
@@ -21,7 +52,7 @@
         Importante! <br />
         Preencha todos os dados
       </p>
-      <button type="button">Salvar Cadastro</button>
+      <button type="button" (click)="handleSubmit()">Salvar Cadastro</button>
     </footer>
   </main>
 </div>

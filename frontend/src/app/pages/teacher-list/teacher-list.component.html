@@ -1,9 +1,36 @@
 <div id="page-teacher-list" class="container">
   <page-header title="Estes são os Proffys disponíveis.">
     <form id="search-teachers">
-      <app-input label="Matéria" name="subject"></app-input>
-      <app-input label="Dia da Semana" name="week_day"></app-input>
-      <app-input label="Horário" name="time"></app-input>
+      <app-select
+        label="Matéria"
+        name="subject"
+        [options]="[
+          {value: 'Artes', label: 'Artes'},
+          {value: 'Matemática', label: 'Matemática'},
+          {value: 'História', label: 'História'},
+          {value: 'Filosofia', label: 'Filosofia'},
+          {value: 'Geografia', label: 'Geografia'},
+          {value: 'Química', label: 'Química'},
+          {value: 'Física', label: 'Física'},
+          {value: 'Biologia', label: 'Biologia'},
+          {value: 'Português', label: 'Português'},
+          {value: 'Educação Física', label: 'Educação Física'}
+        ]"
+      ></app-select>
+      <app-select
+        label="Dia da Semana"
+        name="week_day"
+        [options]="[
+          {value: '0', label: 'Domingo'},
+          {value: '1', label: 'Segunda-Feira'},
+          {value: '2', label: 'Terça-Feira'},
+          {value: '3', label: 'Quarta-Feira'},
+          {value: '4', label: 'Quinta-Feira'},
+          {value: '5', label: 'Sexta-Feira'},
+          {value: '6', label: 'Sábado'}
+        ]"
+      ></app-select>
+      <app-input label="Horário" name="time" type="time"></app-input>
     </form>
   </page-header>
 

@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { reducers, metaReducers } from './reducers';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { reducers, metaReducers } from './reducers';
   imports: [
     BrowserModule,
     AppRouting,
+    FormsModule,
     HttpClientModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([]),
