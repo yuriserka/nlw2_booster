@@ -32,7 +32,7 @@
         Horários Disponíveis
         <button type="button" (click)="addSchedule()">+ Novo horário</button>
       </legend>
-      <div class="schedule-item">
+      <div class="schedule-item" *ngFor="let s of scheduleItems$ | async; index as i">
         <app-select [parentForm]="form" controlName="week_day" label="Dia da Semana" name="week_day" [options]="[
           {value: '0', label: 'Domingo'},
           {value: '1', label: 'Segunda-Feira'},
@@ -41,10 +41,13 @@
           {value: '4', label: 'Quinta-Feira'},
           {value: '5', label: 'Sexta-Feira'},
           {value: '6', label: 'Sábado'}
-          ]"></app-select>
-        <app-input [parentForm]="form" controlName="from" name="from" label="Das" type="time">
+          ]" (change)="setScheduleItemValue(i, 'weekDay', $event.target.value)"></app-select>
+
+        <app-input [parentForm]="form" controlName="from" name="from" label="Das" type="time"
+          (change)="setScheduleItemValue(i, 'beginTime', $event.target.value)">
         </app-input>
-        <app-input [parentForm]="form" controlName="to" name="to" label="Até" type="time">
+        <app-input [parentForm]="form" controlName="to" name="to" label="Até" type="time"
+          (change)="setScheduleItemValue(i, 'endTime', $event.target.value)">
         </app-input>
       </div>
     </fieldset>

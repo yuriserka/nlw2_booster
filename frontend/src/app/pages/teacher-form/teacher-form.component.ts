@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Lesson } from 'src/app/models/Lesson';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Cadastrar } from './.ngrx/actions';
 import { selectEnviando } from "./.ngrx/selector";
 import { ITeacherFormState } from './.ngrx/state';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 
 interface ScheduleItem {
   weekDay: number;
@@ -21,8 +20,8 @@ interface ScheduleItem {
 })
 export class TeacherFormComponent implements OnInit {
   form: FormGroup;
-  schedule: ScheduleItem[] = [];
   enviando$: Observable<boolean>;
+  readonly scheduleItems$ = new BehaviorSubject<ScheduleItem[]>([{ weekDay: 0, beginTime: '', endTime: '' }]);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,36 +49,40 @@ export class TeacherFormComponent implements OnInit {
     this.enviando$ = this.store.select(selectEnviando);
   }
 
+  setScheduleItemValue(index: number, field: string, value: string) {
+    this.scheduleItems$.next(
+      this.scheduleItems$.value.map((item, i) => {
+        return i === index
+          ? { ...item, [field]: value }
+          : item;
+      })
+    );
+    console.log(this.scheduleItems$.value);
+  }
+
   addSchedule(): void {
-    const weekDay = this.form.get('week_day');
-    const from = this.form.get('from');
-    const to = this.form.get('to');
+    this.form.get('week_day').reset();
+    this.form.get('from').reset();
+    this.form.get('to').reset();
 
-    if (!to.valid || !from.valid || !weekDay.valid) {
-      return;
-    }
-
-    this.schedule.push({
-      weekDay: Number(weekDay.value),
-      beginTime: from.value,
-      endTime: to.value,
-    });
-
-    weekDay.reset();
-    from.reset();
-    to.reset();
+    this.scheduleItems$.next([
+      ...this.scheduleItems$.value,
+      {
+        weekDay: 0,
+        beginTime: '',
+        endTime: '',
+      }
+    ]);
   }
 
   handleSubmit() {
-    if (this.form.invalid) {
+    if (this.form.invalid || !this.scheduleItems$.value.length) {
       return;
     }
-    if (!this.schedule.length) {
-      this.addSchedule();
-    }
+
     const data = {
       ...this.form.value,
-      schedule: this.schedule
+      schedule: this.scheduleItems$.value
     };
 
     let { from, to, week_day, ...lesson } = data;
@@ -90,8 +93,8 @@ export class TeacherFormComponent implements OnInit {
     };
 
     this.store.dispatch(Cadastrar({ entity: lesson }));
-    
-    // essa linha de baixo deveria aparecer na Action: CadastradoComSucesso
+
+    // essa linha de baixo deveria aparecer na Action: CadastradoComSucesso (creio eu)
     this.router.navigateByUrl('/');
   }
 }
