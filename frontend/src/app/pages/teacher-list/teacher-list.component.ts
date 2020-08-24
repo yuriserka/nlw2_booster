@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ITeacherListState } from './.ngrx/state';
-import { selectAll, selectCarregando } from "./.ngrx/selector";
 import { Listar } from './.ngrx/actions';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { selectAll, selectCarregando } from "./.ngrx/selector";
+import { ITeacherListState } from './.ngrx/state';
 
 @Component({
   selector: 'teacher-list',
@@ -22,22 +22,26 @@ export class TeacherListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.setupObservables();
-    this.listar();
     this.form = this.formBuilder.group({
       subject: ['', Validators.required],
       week_day: ['', Validators.required],
       time: ['', Validators.required],
     });
+    this.setupObservables();
+    this.onFormChange();
   }
 
-  setupObservables() {
+  setupObservables(): void {
     this.data$ = this.store.select(selectAll);
     this.carregando$ = this.store.select(selectCarregando);
   }
 
-  listar() {
-    this.store.dispatch(Listar());
+  onFormChange(): void {
+    this.form.valueChanges.subscribe(val => {
+      if (!this.form.valid) {
+        return;
+      }
+      this.store.dispatch(Listar({ query: this.form.value }));
+    });
   }
-
 }

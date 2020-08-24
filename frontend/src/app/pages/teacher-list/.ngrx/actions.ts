@@ -2,7 +2,8 @@ import { createAction, props } from '@ngrx/store';
 import { Lesson } from '../../../models/Lesson';
 
 export const Listar = createAction(
-  '[TeacherList] Listar'
+  '[TeacherList] Listar',
+  props<{ query: { [k: string]: string } }>()
 );
 
 export const ListadoComSucesso = createAction(

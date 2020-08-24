@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs/operators';
-import { TeacherListService } from '../teacher-list.service';
+import { TeacherFormService } from '../teacher-form.service';
 import * as LessonActions from './actions';
 
 @Injectable()
@@ -9,16 +9,16 @@ export class LessonEffects {
 
   constructor(
     private actions$: Actions,
-    private service: TeacherListService
+    private service: TeacherFormService,
   ) { }
 
-  loadLessons$ = createEffect(() => this.actions$
+  saveLesson$ = createEffect(() => this.actions$
     .pipe(
-      ofType(LessonActions.Listar),
+      ofType(LessonActions.Cadastrar),
       mergeMap(action => this.service
-        .list(action.query['week_day'], action.query['time'], action.query['subject'])
+        .save(action.entity)
         .pipe(
-          map(lessons => LessonActions.ListadoComSucesso({ list: lessons }))
+          map(l => LessonActions.CadastradoComSucesso({ entity: l }))
         )
       )
     )

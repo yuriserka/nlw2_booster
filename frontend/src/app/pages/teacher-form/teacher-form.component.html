@@ -6,7 +6,7 @@
       <legend>Seus Dados</legend>
       <app-input [parentForm]="form" controlName="name" label="Nome Completo" name="name"></app-input>
       <app-input [parentForm]="form" controlName="avatar" label="Avatar" name="avatar"></app-input>
-      <app-input [parentForm]=" form" controlName="whatsapp" label="WhatsApp" name="whatsapp"></app-input>
+      <app-input [parentForm]=" form" controlName="phone" label="WhatsApp" name="whatsapp"></app-input>
       <app-text-area [parentForm]="form" controlName="bio" label="Biografia" name="bio"></app-text-area>
     </fieldset>
     <fieldset>
@@ -24,6 +24,7 @@
         {value: 'Educação Física', label: 'Educação Física'}
         ]"></app-select>
       <app-input [parentForm]="form" controlName="price" label="Custo da hora aula" name="price"></app-input>
+      <app-text-area [parentForm]="form" controlName="description" label="Descrição" name="description"></app-text-area>
     </fieldset>
 
     <fieldset>
