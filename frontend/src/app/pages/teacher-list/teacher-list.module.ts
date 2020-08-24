@@ -10,6 +10,7 @@ import { reducer } from './.ngrx/reducer';
 import { TeacherListRouting } from './teacher-list-routing.module';
 import { TeacherListComponent } from './teacher-list.component';
 import { SelectModule } from '../../components/select/select.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [TeacherListComponent],
@@ -20,6 +21,7 @@ import { SelectModule } from '../../components/select/select.module';
     TeacherListRouting,
     InputModule,
     SelectModule,
+    ReactiveFormsModule,
     StoreModule.forFeature('teacherList', reducer),
     EffectsModule.forFeature([LessonEffects])
   ],

@@ -1,7 +1,7 @@
-<div class="select-container">
-  <label htmlFor={{name}}>{{ label }}</label>
-  <select id={{name}}>
+<div class="select-container" [formGroup]="parentForm">
+  <label [htmlFor]="name">{{ label }}</label>
+  <select [id]="name" [formControlName]="controlName">
     <option value="" disabled selected hidden>Selecione uma opção</option>
-    <option *ngFor="let o of options" value={{o.value}}>{{o.label}}</option>
+    <option *ngFor="let o of options" [value]="o.value">{{o.label}}</option>
   </select>
 </div>

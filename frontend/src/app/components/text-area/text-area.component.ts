@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-text-area',
@@ -8,4 +9,7 @@ import { Component, Input } from '@angular/core';
 export class TextAreaComponent {
   @Input() label: string;
   @Input() name: string;
+
+  @Input() parentForm: FormGroup;
+  @Input() controlName: string;
 }
