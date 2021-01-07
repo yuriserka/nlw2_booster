@@ -38,7 +38,7 @@ export class TeacherListComponent implements OnInit {
   }
 
   onFormChange(): void {
-    this.form.valueChanges.subscribe(val => {
+    this.form.valueChanges.subscribe(_ => {
       if (!this.form.valid) {
         return;
       }

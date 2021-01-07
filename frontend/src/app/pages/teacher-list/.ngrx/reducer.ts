@@ -6,7 +6,7 @@ import { ITeacherListState } from './state';
 
 const entityAdapter = createEntityAdapter<Lesson>();
 
-const initialState = entityAdapter.getInitialState({
+export const initialState = entityAdapter.getInitialState({
   carregando: false,
 });
 
