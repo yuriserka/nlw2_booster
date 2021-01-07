@@ -1,8 +1,7 @@
 import { createEntityAdapter } from "@ngrx/entity";
-import { createReducer, on } from "@ngrx/store";
+import { Action, createReducer, on } from "@ngrx/store";
 import { Lesson } from '../../../models/Lesson';
 import * as Actions from './actions';
-import { Action } from '@ngrx/store';
 import { ITeacherFormState } from './state';
 
 const entityAdapter = createEntityAdapter<Lesson>();
@@ -13,7 +12,7 @@ const initialState = entityAdapter.getInitialState({
 
 const lessonReducer = createReducer(
   initialState,
-  on(Actions.Cadastrar, (state, action) => {
+  on(Actions.Cadastrar, (state, _) => {
     return { ...state, enviando: true };
   }),
   on(Actions.CadastradoComSucesso, (state, action) => {
@@ -22,7 +21,7 @@ const lessonReducer = createReducer(
       enviando: false,
     });
   }),
-  on(Actions.CadastradoComErro, (state, action) => {
+  on(Actions.CadastradoComErro, (state, _) => {
     return { ...state, enviando: false };
   }),
 );

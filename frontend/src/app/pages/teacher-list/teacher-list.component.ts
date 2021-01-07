@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Lesson } from 'src/app/models/Lesson';
 import { Listar } from './.ngrx/actions';
 import { selectAll, selectCarregando } from "./.ngrx/selector";
 import { ITeacherListState } from './.ngrx/state';
@@ -12,7 +13,7 @@ import { ITeacherListState } from './.ngrx/state';
   styleUrls: ['./teacher-list.component.scss']
 })
 export class TeacherListComponent implements OnInit {
-  data$: Observable<any>;
+  data$: Observable<Lesson[]>;
   carregando$: Observable<boolean>;
   form: FormGroup;
 

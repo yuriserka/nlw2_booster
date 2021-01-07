@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs/operators';
 import { TeacherFormService } from '../teacher-form.service';
@@ -10,6 +11,7 @@ export class LessonEffects {
   constructor(
     private actions$: Actions,
     private service: TeacherFormService,
+    private router: Router,
   ) { }
 
   saveLesson$ = createEffect(() => this.actions$
@@ -18,7 +20,10 @@ export class LessonEffects {
       mergeMap(action => this.service
         .save(action.entity)
         .pipe(
-          map(l => LessonActions.CadastradoComSucesso({ entity: l }))
+          map(l => {
+            this.router.navigateByUrl('/');
+            return LessonActions.CadastradoComSucesso({ entity: l });
+          })
         )
       )
     )

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Cadastrar } from './.ngrx/actions';
@@ -21,12 +20,13 @@ interface ScheduleItem {
 export class TeacherFormComponent implements OnInit {
   form: FormGroup;
   enviando$: Observable<boolean>;
-  readonly scheduleItems$ = new BehaviorSubject<ScheduleItem[]>([{ weekDay: 0, beginTime: '', endTime: '' }]);
+  scheduleItems$ = new BehaviorSubject<ScheduleItem[]>([
+    { weekDay: 0, beginTime: '', endTime: '' }
+  ]);
 
   constructor(
     private formBuilder: FormBuilder,
     private store: Store<ITeacherFormState>,
-    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -93,8 +93,5 @@ export class TeacherFormComponent implements OnInit {
     };
 
     this.store.dispatch(Cadastrar({ entity: lesson }));
-
-    // essa linha de baixo deveria aparecer na Action: CadastradoComSucesso (creio eu)
-    this.router.navigateByUrl('/');
   }
 }

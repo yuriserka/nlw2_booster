@@ -1,8 +1,7 @@
 import { createEntityAdapter } from "@ngrx/entity";
-import { createReducer, on } from "@ngrx/store";
+import { Action, createReducer, on } from "@ngrx/store";
 import { Lesson } from '../../../models/Lesson';
 import * as Actions from './actions';
-import { Action } from '@ngrx/store';
 import { ITeacherListState } from './state';
 
 const entityAdapter = createEntityAdapter<Lesson>();
@@ -13,16 +12,16 @@ const initialState = entityAdapter.getInitialState({
 
 const lessonReducer = createReducer(
   initialState,
-  on(Actions.Listar, (state, action) => {
+  on(Actions.Listar, (state, _) => {
     return { ...state, carregando: true };
   }),
   on(Actions.ListadoComSucesso, (state, action) => {
-    return entityAdapter.addAll(action.list, {
+    return entityAdapter.addMany(action.list, {
       ...state,
       carregando: false,
     });
   }),
-  on(Actions.ListadoComErro, (state, action) => {
+  on(Actions.ListadoComErro, (state, _) => {
     return { ...state, carregando: false };
   }),
 );
