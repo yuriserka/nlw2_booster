@@ -14,7 +14,7 @@ import { ITeacherListState } from './.ngrx/state';
 })
 export class TeacherListComponent implements OnInit {
   data$: Observable<Lesson[]>;
-  carregando$: Observable<boolean>;
+  loading$: Observable<boolean>;
   form: FormGroup;
 
   constructor(
@@ -34,7 +34,7 @@ export class TeacherListComponent implements OnInit {
 
   setupObservables(): void {
     this.data$ = this.store.select(selectAll);
-    this.carregando$ = this.store.select(selectCarregando);
+    this.loading$ = this.store.select(selectCarregando);
   }
 
   onFormChange(): void {

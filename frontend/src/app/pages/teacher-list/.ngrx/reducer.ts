@@ -16,7 +16,7 @@ const lessonReducer = createReducer(
     return { ...state, carregando: true };
   }),
   on(Actions.ListadoComSucesso, (state, action) => {
-    return entityAdapter.addMany(action.list, {
+    return entityAdapter.setAll(action.lessons, {
       ...state,
       carregando: false,
     });

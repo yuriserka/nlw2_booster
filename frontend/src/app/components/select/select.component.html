@@ -1,7 +1,7 @@
 <div class="select-container" [formGroup]="parentForm">
   <label [htmlFor]="name">{{ label }}</label>
-  <select [id]="name" [formControlName]="controlName" defaultValue="">
-    <option value="" disabled selected hidden>Selecione uma opção</option>
+  <select [id]="name" [formControlName]="controlName" defaultValue="-1">
+    <option value="-1" disabled selected hidden>Selecione uma opção</option>
     <option *ngFor="let o of options" [value]="o.value">{{o.label}}</option>
   </select>
 </div>

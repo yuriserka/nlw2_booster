@@ -44,9 +44,11 @@ describe('[Teacher-List-Component]', () => {
   it('should dispatch list action', () => {
     const spy = spyOn(TestBed.inject(Store), 'dispatch');
 
-    component.form.controls['subject'].setValue('subject');
-    component.form.controls['week_day'].setValue('1');
-    component.form.controls['time'].setValue('20:00');
+    const { subject, week_day, time } = component.form.controls;
+
+    subject.setValue('subject');
+    week_day.setValue('1');
+    time.setValue('20:00');
 
     expect(spy).toHaveBeenCalledTimes(1);
   });
@@ -54,7 +56,8 @@ describe('[Teacher-List-Component]', () => {
   it('should not dispatch list action', () => {
     const spy = spyOn(TestBed.inject(Store), 'dispatch');
 
-    component.form.controls['subject'].setValue('test');
+    const { subject } = component.form.controls;
+    subject.setValue('test');
 
     expect(spy).toHaveBeenCalledTimes(0);
   });

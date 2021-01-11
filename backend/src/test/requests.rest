@@ -1,0 +1,23 @@
+GET http://localhost:8080/lessons
+  ?subject=Matemática
+  &weekDay=2
+  &time=14:00
+content-type: application/json
+
+###
+
+POST http://localhost:8080/lessons
+Content-Type: application/json
+
+{
+  "avatar": "https://avatars1.githubusercontent.com/u/32364111?s=60&v=4",
+  "bio": "cicada",
+  "description": "adição",
+  "name": "yuri serka",
+  "phone": "61 98882322",
+  "price": "37.99",
+  "schedule": [
+    {"weekDay": "4", "beginTime": "12:00", "endTime": "13:00"},
+    {"weekDay": "2", "beginTime": "12:00", "endTime": "13:00"}
+  ]
+}

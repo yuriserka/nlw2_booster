@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { TeacherListService } from '../teacher-list.service';
 import * as LessonActions from './actions';
 
@@ -18,7 +18,8 @@ export class LessonEffects {
       mergeMap(action => this.service
         .list(action.query['week_day'], action.query['time'], action.query['subject'])
         .pipe(
-          map(lessons => LessonActions.ListadoComSucesso({ list: lessons }))
+          map(lessons => LessonActions.ListadoComSucesso({ lessons })),
+          catchError(error => [LessonActions.ListadoComErro({ error })]),
         )
       )
     )

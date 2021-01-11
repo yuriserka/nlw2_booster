@@ -8,10 +8,10 @@ export const Listar = createAction(
 
 export const ListadoComSucesso = createAction(
   '[TeacherList] Listado com sucesso',
-  props<{ list: Lesson[] }>()
+  props<{ lessons: Lesson[] }>()
 );
 
 export const ListadoComErro = createAction(
   '[TeacherList] Listar com erro',
-  props<{ erro: any }>()
+  props<{ error: any }>()
 );

@@ -5949,6 +5949,20 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
+ng-spinners@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/ng-spinners/-/ng-spinners-1.1.3.tgz#c2da6026c9011c08e42c096be4341b8de8d9457b"
+  integrity sha512-6B5i74l00paOwCzu8o3qIssAoSBcTuo8NNje1YMhlAHUvSn2u8MQF56sTfc6Yr+8dMETfRDRUF8G2RZQ5O+ASQ==
+  dependencies:
+    tslib "^1.9.0"
+
+ngx-spinner@^10.0.1:
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-spinner/-/ngx-spinner-10.0.1.tgz#f08932a34bf98b302488a9c475584970ed386d23"
+  integrity sha512-3fkzS4t+oKg1jobUmWxeGD3zLymdIOMijib517tgrDnW4Q2fKKwZPVCfTR5ztm9G0/l9G/DRoOoBcHPPupUBdg==
+  dependencies:
+    tslib "^2.0.0"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"

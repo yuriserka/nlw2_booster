@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Cadastrar } from './.ngrx/actions';
-import { selectEnviando } from "./.ngrx/selector";
+import { selectEnviando } from './.ngrx/selector';
 import { ITeacherFormState } from './.ngrx/state';
 
 interface ScheduleItem {
@@ -20,9 +20,6 @@ interface ScheduleItem {
 export class TeacherFormComponent implements OnInit {
   form: FormGroup;
   enviando$: Observable<boolean>;
-  scheduleItems$ = new BehaviorSubject<ScheduleItem[]>([
-    { weekDay: 0, beginTime: '', endTime: '' }
-  ]);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,13 +33,15 @@ export class TeacherFormComponent implements OnInit {
       phone: ['', Validators.required],
       bio: ['', Validators.required],
       description: ['', Validators.required],
-      subject: ['', Validators.required],
+      subject: ['-1', Validators.required],
       price: ['', Validators.required],
-      week_day: ['', Validators.required],
-      from: ['', Validators.required],
-      to: ['', Validators.required],
+      schedule: this.formBuilder.array([this.createScheduleItem()], [Validators.required]),
     });
     this.setupObservables();
+  }
+
+  get scheduleItems(): FormArray {
+    return this.form.get('schedule') as FormArray;
   }
 
   setupObservables() {
@@ -50,48 +49,38 @@ export class TeacherFormComponent implements OnInit {
   }
 
   setScheduleItemValue(index: number, field: string, value: string) {
-    this.scheduleItems$.next(
-      this.scheduleItems$.value.map((item, i) => {
-        return i === index
-          ? { ...item, [field]: value }
-          : item;
-      })
-    );
-    console.log(this.scheduleItems$.value);
+    this.scheduleItems.value.map((item: ScheduleItem, i: number) => {
+      return i === index
+        ? { ...item, [field]: value }
+        : item;
+    });
   }
 
   addSchedule(): void {
-    this.form.get('week_day').reset();
-    this.form.get('from').reset();
-    this.form.get('to').reset();
-
-    this.scheduleItems$.next([
-      ...this.scheduleItems$.value,
-      {
-        weekDay: 0,
-        beginTime: '',
-        endTime: '',
-      }
-    ]);
+    this.scheduleItems.push(this.createScheduleItem());
   }
 
   handleSubmit() {
-    if (this.form.invalid || !this.scheduleItems$.value.length) {
+    if (this.form.invalid) {
       return;
     }
 
-    const data = {
+    const lesson = {
       ...this.form.value,
-      schedule: this.scheduleItems$.value
-    };
-
-    let { from, to, week_day, ...lesson } = data;
-
-    lesson = {
-      ...lesson,
-      price: Number(lesson.price.replace(',', '.')),
-    };
+      schedule: this.scheduleItems.value.map(
+        (item: any) => (<ScheduleItem>{ weekDay: item.week_day, beginTime: item.from, endTime: item.to })
+      ),
+      price: Number(this.form.get('price').value.replace(',', '.')),
+    }
 
     this.store.dispatch(Cadastrar({ entity: lesson }));
+  }
+
+  createScheduleItem(): FormGroup {
+    return this.formBuilder.group({
+      week_day: ['-1', Validators.required],
+      from: ['', Validators.required],
+      to: ['', Validators.required],
+    });
   }
 }
