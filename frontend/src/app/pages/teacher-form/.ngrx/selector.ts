@@ -6,4 +6,4 @@ const selector = createFeatureSelector<ITeacherFormState>('teacherForm');
 
 export const selectAll = createSelector(selector, fromReducer.selectAll);
 
-export const selectEnviando = createSelector(selector, entityState => entityState.enviando);
+export const selectSending = createSelector(selector, entityState => entityState.sending);

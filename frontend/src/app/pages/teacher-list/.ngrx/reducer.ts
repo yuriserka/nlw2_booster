@@ -7,22 +7,22 @@ import { ITeacherListState } from './state';
 const entityAdapter = createEntityAdapter<Lesson>();
 
 export const initialState = entityAdapter.getInitialState({
-  carregando: false,
+  loading: false,
 });
 
 const lessonReducer = createReducer(
   initialState,
-  on(Actions.Listar, (state, _) => {
-    return { ...state, carregando: true };
+  on(Actions.List, (state, _) => {
+    return { ...state, loading: true };
   }),
-  on(Actions.ListadoComSucesso, (state, action) => {
+  on(Actions.SuccessfulList, (state, action) => {
     return entityAdapter.setAll(action.lessons, {
       ...state,
-      carregando: false,
+      loading: false,
     });
   }),
-  on(Actions.ListadoComErro, (state, _) => {
-    return { ...state, carregando: false };
+  on(Actions.UnsuccessfulList, (state, _) => {
+    return { ...state, loading: false };
   }),
 );
 

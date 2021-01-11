@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { InputModule } from '../../components/input/input.module';
@@ -13,13 +13,11 @@ import { TeacherListComponent } from './teacher-list.component';
 describe('[Teacher-List-Component]', () => {
   let component: TeacherListComponent;
   let fixture: ComponentFixture<TeacherListComponent>;
-  const formBuilder: FormBuilder = new FormBuilder();
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [TeacherListComponent],
       imports: [
-        CommonModule,
         CommonModule,
         PageHeaderModule,
         TeacherItemModule,
@@ -29,7 +27,6 @@ describe('[Teacher-List-Component]', () => {
       ],
       providers: [
         provideMockStore({ initialState: { teacherList: initialState } }),
-        { provide: FormBuilder, useValue: formBuilder },
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(TeacherListComponent);
@@ -44,21 +41,28 @@ describe('[Teacher-List-Component]', () => {
   it('should dispatch list action', () => {
     const spy = spyOn(TestBed.inject(Store), 'dispatch');
 
+    // Given
     const { subject, week_day, time } = component.form.controls;
 
+    // When
     subject.setValue('subject');
     week_day.setValue('1');
     time.setValue('20:00');
 
+    // Then
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it('should not dispatch list action', () => {
     const spy = spyOn(TestBed.inject(Store), 'dispatch');
 
+    // Given
     const { subject } = component.form.controls;
+
+    // When
     subject.setValue('test');
 
+    // Then
     expect(spy).toHaveBeenCalledTimes(0);
   });
 });

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Cadastrar } from './.ngrx/actions';
-import { selectEnviando } from './.ngrx/selector';
+import { Register } from './.ngrx/actions';
+import { selectSending } from './.ngrx/selector';
 import { ITeacherFormState } from './.ngrx/state';
 
 interface ScheduleItem {
@@ -19,11 +19,11 @@ interface ScheduleItem {
 })
 export class TeacherFormComponent implements OnInit {
   form: FormGroup;
-  enviando$: Observable<boolean>;
+  sending$: Observable<boolean>;
 
   constructor(
-    private formBuilder: FormBuilder,
     private store: Store<ITeacherFormState>,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
@@ -44,11 +44,11 @@ export class TeacherFormComponent implements OnInit {
     return this.form.get('schedule') as FormArray;
   }
 
-  setupObservables() {
-    this.enviando$ = this.store.select(selectEnviando);
+  setupObservables(): void {
+    this.sending$ = this.store.select(selectSending);
   }
 
-  setScheduleItemValue(index: number, field: string, value: string) {
+  setScheduleItemValue(index: number, field: string, value: string): void {
     this.scheduleItems.value.map((item: ScheduleItem, i: number) => {
       return i === index
         ? { ...item, [field]: value }
@@ -60,7 +60,7 @@ export class TeacherFormComponent implements OnInit {
     this.scheduleItems.push(this.createScheduleItem());
   }
 
-  handleSubmit() {
+  handleSubmit(): void {
     if (this.form.invalid) {
       return;
     }
@@ -73,7 +73,7 @@ export class TeacherFormComponent implements OnInit {
       price: Number(this.form.get('price').value.replace(',', '.')),
     }
 
-    this.store.dispatch(Cadastrar({ entity: lesson }));
+    this.store.dispatch(Register({ entity: lesson }));
   }
 
   createScheduleItem(): FormGroup {

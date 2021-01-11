@@ -16,13 +16,13 @@ export class LessonEffects {
 
   saveLesson$ = createEffect(() => this.actions$
     .pipe(
-      ofType(LessonActions.Cadastrar),
+      ofType(LessonActions.Register),
       mergeMap(action => this.service
         .save(action.entity)
         .pipe(
           map(l => {
             this.router.navigateByUrl('/');
-            return LessonActions.CadastradoComSucesso({ entity: l });
+            return LessonActions.SuccessfulRegister({ entity: l });
           })
         )
       )

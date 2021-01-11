@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Lesson } from 'src/app/models/Lesson';
-import { Listar } from './.ngrx/actions';
-import { selectAll, selectCarregando } from "./.ngrx/selector";
+import { List } from './.ngrx/actions';
+import { selectAll, selectLoading } from "./.ngrx/selector";
 import { ITeacherListState } from './.ngrx/state';
 
 @Component({
@@ -24,8 +24,8 @@ export class TeacherListComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      subject: ['', Validators.required],
-      week_day: ['', Validators.required],
+      subject: ['-1', Validators.required],
+      week_day: ['-1', Validators.required],
       time: ['', Validators.required],
     });
     this.setupObservables();
@@ -34,7 +34,7 @@ export class TeacherListComponent implements OnInit {
 
   setupObservables(): void {
     this.data$ = this.store.select(selectAll);
-    this.loading$ = this.store.select(selectCarregando);
+    this.loading$ = this.store.select(selectLoading);
   }
 
   onFormChange(): void {
@@ -42,7 +42,7 @@ export class TeacherListComponent implements OnInit {
       if (!this.form.valid) {
         return;
       }
-      this.store.dispatch(Listar({ query: this.form.value }));
+      this.store.dispatch(List({ query: this.form.value }));
     });
   }
 }

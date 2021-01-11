@@ -27,13 +27,12 @@
   </page-header>
 
   <main>
-    <div *ngIf="loading$ | async">
+    <div class="info" *ngIf="loading$ | async">
       <ngx-spinner></ngx-spinner>
     </div>
-    <div *ngIf="!(loading$ | async) && !(data$ | async).length">
+    <div class="info" *ngIf="!(loading$ | async) && !(data$ | async).length">
       <h2>Nenhuma aula cadastrada</h2>
     </div>
-    {{(data$ | async).length}}
     <teacher-item *ngFor="let l of data$ | async" [lesson]="l"></teacher-item>
   </main>
 </div>

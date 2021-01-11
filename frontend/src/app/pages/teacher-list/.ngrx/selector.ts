@@ -6,4 +6,4 @@ const selector = createFeatureSelector<ITeacherListState>('teacherList');
 
 export const selectAll = createSelector(selector, fromReducer.selectAll);
 
-export const selectCarregando = createSelector(selector, entityState => entityState.carregando);
+export const selectLoading = createSelector(selector, entityState => entityState.loading);

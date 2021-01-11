@@ -14,12 +14,12 @@ export class LessonEffects {
 
   loadLessons$ = createEffect(() => this.actions$
     .pipe(
-      ofType(LessonActions.Listar),
+      ofType(LessonActions.List),
       mergeMap(action => this.service
         .list(action.query['week_day'], action.query['time'], action.query['subject'])
         .pipe(
-          map(lessons => LessonActions.ListadoComSucesso({ lessons })),
-          catchError(error => [LessonActions.ListadoComErro({ error })]),
+          map(lessons => LessonActions.SuccessfulList({ lessons })),
+          catchError(error => [LessonActions.UnsuccessfulList({ error })]),
         )
       )
     )

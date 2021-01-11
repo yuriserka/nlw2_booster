@@ -6,23 +6,23 @@ import { ITeacherFormState } from './state';
 
 const entityAdapter = createEntityAdapter<Lesson>();
 
-const initialState = entityAdapter.getInitialState({
-  enviando: false,
+export const initialState = entityAdapter.getInitialState({
+  sending: false,
 });
 
 const lessonReducer = createReducer(
   initialState,
-  on(Actions.Cadastrar, (state, _) => {
-    return { ...state, enviando: true };
+  on(Actions.Register, (state, _) => {
+    return { ...state, sending: true };
   }),
-  on(Actions.CadastradoComSucesso, (state, action) => {
+  on(Actions.SuccessfulRegister, (state, action) => {
     return entityAdapter.addOne(action.entity, {
       ...state,
-      enviando: false,
+      sending: false,
     });
   }),
-  on(Actions.CadastradoComErro, (state, _) => {
-    return { ...state, enviando: false };
+  on(Actions.UnsuccessfulRegister, (state, _) => {
+    return { ...state, sending: false };
   }),
 );
 

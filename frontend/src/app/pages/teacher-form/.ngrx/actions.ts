@@ -1,17 +1,17 @@
 import { createAction, props } from '@ngrx/store';
 import { Lesson } from '../../../models/Lesson';
 
-export const Cadastrar = createAction(
-  '[TeacherForm] Cadastrar',
+export const Register = createAction(
+  '[TeacherForm]: registering',
   props<{ entity: Lesson }>()
 );
 
-export const CadastradoComSucesso = createAction(
-  '[TeacherForm] Cadastrado com sucesso',
+export const SuccessfulRegister = createAction(
+  '[TeacherForm]: registration complete',
   props<{ entity: Lesson }>()
 );
 
-export const CadastradoComErro = createAction(
-  '[TeacherForm] Cadastrar com erro',
+export const UnsuccessfulRegister = createAction(
+  '[TeacherForm]: error registering class',
   props<{ erro: any }>()
 );
